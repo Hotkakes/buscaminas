@@ -1,0 +1,22 @@
+# Dependencias de Composer
+source/vendor/
+source/composer.lock
+
+# PHP portable descargado por el lanzador
+/php/
+estado-php.txt
+
+# Datos generados en ejecución
+source/storage/*
+!source/storage/.gitkeep
+
+# PHPUnit
+source/.phpunit.cache/
+source/.phpunit.result.cache
+
+# Editores y sistema
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

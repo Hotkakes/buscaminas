@@ -1,0 +1,36 @@
+{
+    "name": "buscaminas/buscaminas-php",
+    "description": "Réplica del Buscaminas clásico de Windows escrita en PHP 8.5",
+    "type": "project",
+    "license": "MIT",
+    "keywords": ["buscaminas", "minesweeper", "php", "juego"],
+    "require": {
+        "php": ">=8.5",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-session": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Buscaminas\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Buscaminas\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8000 -t public public/index.php"
+        ],
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

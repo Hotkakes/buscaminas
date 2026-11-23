@@ -1,0 +1,240 @@
+/* Buscaminas — apariencia del Buscaminas clásico de Windows */
+
+:root {
+    --gray: #c0c0c0;
+    --light: #ffffff;
+    --dark: #808080;
+    --darker: #000000;
+    --title: #000080;
+    --title-end: #1084d0;
+    --cell: 16px;
+    --ui-font: Tahoma, "MS Sans Serif", "Segoe UI", Verdana, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 16px;
+    background: #008080; /* fondo de escritorio clásico */
+    font: 11px var(--ui-font);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ---------- Relieves 3D ---------- */
+.bevel-out {
+    border-style: solid;
+    border-color: var(--light) var(--dark) var(--dark) var(--light);
+}
+.bevel-in {
+    border-style: solid;
+    border-color: var(--dark) var(--light) var(--light) var(--dark);
+}
+
+/* ---------- Ventana ---------- */
+.window {
+    background: var(--gray);
+    border: 2px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    box-shadow: inset 1px 1px var(--light), inset -1px -1px var(--dark);
+    padding: 3px;
+    display: inline-block;
+}
+
+.titlebar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 18px;
+    padding: 0 2px 0 3px;
+    background: linear-gradient(90deg, var(--title), var(--title-end));
+    color: #fff;
+    font-weight: bold;
+}
+.titlebar__icon {
+    width: 14px; height: 14px;
+    background: radial-gradient(circle at 50% 50%, #000 0 4px, transparent 5px), var(--gray);
+}
+.titlebar__text { flex: 1; white-space: nowrap; }
+.titlebar__buttons { display: flex; gap: 2px; }
+.tb-btn {
+    width: 16px; height: 14px;
+    display: grid; place-items: center;
+    background: var(--gray); color: #000;
+    font: bold 10px/1 var(--ui-font);
+    border: 1px solid; border-color: var(--light) #000 #000 var(--light);
+}
+
+/* ---------- Menú ---------- */
+.menubar { display: flex; height: 19px; margin: 1px 0 2px; }
+.menu { position: relative; }
+.menu__title {
+    font: inherit; background: none; border: 1px solid transparent;
+    padding: 1px 6px; height: 19px; cursor: default; color: #000;
+}
+.menu.open .menu__title { border-color: var(--dark) var(--light) var(--light) var(--dark); }
+.menu__list {
+    display: none;
+    position: absolute; top: 19px; left: 0; z-index: 10;
+    min-width: 170px; margin: 0; padding: 2px; list-style: none;
+    background: var(--gray);
+    border: 2px solid; border-color: #dfdfdf #000 #000 #dfdfdf;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .25);
+}
+.menu.open .menu__list { display: block; }
+.menu__list li {
+    display: flex; justify-content: space-between; gap: 24px;
+    padding: 3px 8px 3px 20px; position: relative; white-space: nowrap;
+}
+.menu__list li:hover:not(.sep) { background: var(--title); color: #fff; }
+.menu__list li.checked::before {
+    content: "✓"; position: absolute; left: 6px; font-weight: bold;
+}
+.menu__list li[role="menuitemradio"].checked::before { content: "•"; font-size: 16px; line-height: 11px; }
+.menu__list kbd { font: inherit; }
+.menu__list .sep {
+    padding: 0; margin: 3px 1px; height: 2px;
+    border-top: 1px solid var(--dark); border-bottom: 1px solid var(--light);
+}
+
+/* ---------- Área de juego ---------- */
+.game {
+    border-width: 3px;
+    padding: 6px;
+    background: var(--gray);
+}
+
+.panel {
+    border-width: 2px;
+    height: 37px;
+    padding: 0 5px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Contadores LED de 7 segmentos */
+.led {
+    display: flex;
+    background: #000;
+    border: 1px solid;
+    border-color: var(--dark) var(--light) var(--light) var(--dark);
+}
+.led svg { display: block; width: 13px; height: 23px; }
+
+/* Carita */
+.face {
+    width: 26px; height: 26px; padding: 0;
+    border-width: 2px;
+    background: var(--gray);
+    outline: 1px solid var(--dark);
+    display: grid; place-items: center;
+    cursor: default;
+}
+.face svg { width: 17px; height: 17px; display: block; }
+.face.pressed {
+    border-width: 1px 0 0 1px;
+    border-color: var(--dark);
+    padding: 2px 0 0 2px;
+}
+
+/* ---------- Tablero ---------- */
+.board {
+    border-width: 3px;
+    display: grid;
+    grid-auto-rows: var(--cell);
+    width: max-content;
+}
+
+.cell {
+    width: var(--cell);
+    height: var(--cell);
+    display: grid;
+    place-items: center;
+    font: bold 13px/1 "Arial Black", Arial, var(--ui-font);
+    cursor: default;
+}
+.cell svg { width: 12px; height: 12px; display: block; }
+
+/* Casilla oculta: botón en relieve */
+.cell.h, .cell.f, .cell.q {
+    background: var(--gray);
+    border: 2px solid;
+    border-color: var(--light) var(--dark) var(--dark) var(--light);
+}
+.cell.q { font-size: 12px; }
+
+/* Casilla destapada o presionada: plana con línea gris */
+.cell.open, .cell.pressed {
+    background: var(--gray);
+    border: 0;
+    border-left: 1px solid var(--dark);
+    border-top: 1px solid var(--dark);
+    padding: 1px 0 0 1px;
+}
+.cell.x { background: #ff0000; }
+
+/* Colores originales de los números */
+.n1 { color: #0000ff; }
+.n2 { color: #008000; }
+.n3 { color: #ff0000; }
+.n4 { color: #000080; }
+.n5 { color: #800000; }
+.n6 { color: #008080; }
+.n7 { color: #000000; }
+.n8 { color: #808080; }
+
+/* ---------- Diálogos ---------- */
+.dlg {
+    padding: 3px;
+    background: var(--gray);
+    border: 2px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    box-shadow: inset 1px 1px var(--light), inset -1px -1px var(--dark);
+    font: 11px var(--ui-font);
+    min-width: 260px;
+}
+.dlg::backdrop { background: transparent; }
+.dlg form { margin: 0; }
+.dlg__title {
+    background: linear-gradient(90deg, var(--title), var(--title-end));
+    color: #fff; font-weight: bold; padding: 2px 4px; height: 18px;
+}
+.dlg__body { padding: 12px 10px 8px; }
+.dlg__body--center { text-align: center; }
+.dlg__body--custom { display: flex; gap: 18px; align-items: flex-start; }
+.dlg p { margin: 0 0 10px; line-height: 1.4; }
+.dlg ul { margin: 0 0 10px; padding-left: 16px; line-height: 1.5; }
+
+.fields { display: grid; gap: 10px; }
+.fields label { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.dlg input {
+    font: inherit; width: 54px; padding: 2px 3px;
+    border: 2px solid; border-color: var(--dark) var(--light) var(--light) var(--dark);
+    background: #fff;
+}
+#dlg-record input { width: 160px; margin-bottom: 10px; }
+
+.buttons-col { display: grid; gap: 8px; }
+.buttons-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.buttons-row--center { justify-content: center; }
+
+.btn {
+    font: inherit; min-width: 75px; height: 23px; padding: 0 8px;
+    background: var(--gray); color: #000;
+    border: 2px solid; border-color: var(--light) #000 #000 var(--light);
+    box-shadow: inset -1px -1px var(--dark);
+    cursor: default;
+}
+.btn:active { border-color: #000 var(--light) var(--light) #000; box-shadow: inset 1px 1px var(--dark); }
+.btn:focus-visible { outline: 1px dotted #000; outline-offset: -5px; }
+
+.best { border-collapse: collapse; }
+.best td { padding: 3px 14px 3px 0; }
+.best td:nth-child(2) { text-align: right; }
